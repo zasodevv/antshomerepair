@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #00bfff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .panel {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 10px;
+            text-align: center;
+        }
+        .panel h3 {
+            margin: 0 0 10px;
+        }
+        .panel button {
+            background-color: #00bfff;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .panel button:hover {
+            background-color: #007acc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel" id="anthonyPanel">
+        <h3>Anthony</h3>
+        <button onclick="login('zaso', 'Zaso12$$', 'jdsbnfdbnjhsfsdfsdsfsdffsffdfafsdfafsaff.html')">Login</button>
+    </div>
+
+    <div class="panel" id="robertPanel">
+        <h3>Robert</h3>
+        <button onclick="login('robert', 'Robert12$$', 'fbdsfbhdsfgadsfgfgahgf.html')">Login</button>
+    </div>
+
+    <div class="panel" id="alijahPanel">
+        <h3>Alijah</h3>
+        <button onclick="login('alijah', 'Alijah12$$', 'sdfjnsdufgfhuhufhsdfu.html')">Login</button>
+    </div>
+
+    <script>
+        function login(username, password, redirectUrl) {
+            const userInput = prompt("Enter username:");
+            const passInput = prompt("Enter password:");
+
+            if (userInput === username && passInput === password) {
+                window.location.href = redirectUrl; // Redirect to the specified URL
+            } else {
+                alert("Invalid credentials!");
+            }
+        }
+    </script>
+
+</body>
+</html>

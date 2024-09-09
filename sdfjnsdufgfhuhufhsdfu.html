@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Scheduling</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #00bfff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #00bfff;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .section p {
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #00bfff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #007acc;
+        }
+        .calendar, .pay-details {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+            width: 80%;
+            max-width: 600px;
+            overflow-y: auto;
+        }
+        .calendar table, .pay-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar th, .calendar td, .pay-details th, .pay-details td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .calendar th, .pay-details th {
+            background-color: #00bfff;
+            color: #ffffff;
+        }
+        .highlight {
+            background-color: #ffff00;
+        }
+        .close-btn {
+            display: block;
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Secure Scheduling Website</h1>
+
+        <!-- Section for Anthony -->
+        <div class="section" id="alijahSection">
+            <h2>alijah's Schedule</h2>
+            <p>Upcoming Work Schedule:</p>
+            <ul>
+                
+                
+                <li>Friday 13th: 3:30 PM - 5:30 PM</li>
+            </ul>
+            <button class="button" onclick="showCalendar()">View Full Schedule</button>
+        </div>
+
+        <!-- Section for Estimated Pay -->
+        <div class="section" id="paySection">
+            <h2>Estimated Pay</h2>
+            <p>Estimated pay for alijah based on the current schedule is:</p>
+            <p><strong>$0</strong></p>
+            <button class="button" onclick="showPayDetails()">View Detailed Pay</button>
+        </div>
+    </div>
+
+    <!-- Calendar Popup -->
+    <div class="calendar" id="calendarPopup">
+        <button class="close-btn" onclick="closeCalendar()">Close</button>
+        <h2>alijah's Schedule</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody">
+                <!-- Calendar days will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Detailed Pay Popup -->
+    <div class="pay-details" id="payDetailsPopup">
+        <button class="close-btn" onclick="closePayDetails()">Close</button>
+        <h2>Detailed Pay Information</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Hours Worked</th>
+                    <th>Hourly Rate</th>
+                    <th>Total Pay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+                    <td>2024-09-12</td>
+                    <td>4</td>
+                    <td>$0</td>
+                    <td>$0 </td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function showCalendar() {
+            const calendarPopup = document.getElementById('calendarPopup');
+            calendarPopup.style.display = 'block';
+
+            // Populate the calendar with the current month and highlight the 13th day
+            const now = new Date();
+            const month = now.getMonth();
+            const year = now.getFullYear();
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+
+            const calendarBody = document.getElementById('calendarBody');
+            calendarBody.innerHTML = '';
+
+            let row = '<tr>';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const date = new Date(year, month, i);
+                const dayOfWeek = date.getDay();
+                
+                if (i === 1) {
+                    for (let j = 0; j < dayOfWeek; j++) {
+                        row += '<td></td>';
+                    }
+                }
+
+                const isHighlighted = i === 13; // Highlight only the 13th day
+                row += `<td class="${isHighlighted ? 'highlight' : ''}">${i}</td>`;
+
+                if (dayOfWeek === 6) {
+                    row += '</tr>';
+                    calendarBody.innerHTML += row;
+                    row = '<tr>';
+                }
+            }
+
+            if (new Date(year, month, daysInMonth).getDay() !== 6) {
+                row += '</tr>';
+                calendarBody.innerHTML += row;
+            }
+        }
+
+        function closeCalendar() {
+            const calendarPopup = document.getElementById('calendarPopup');
+            calendarPopup.style.display = 'none';
+        }
+
+        function showPayDetails() {
+            const payDetailsPopup = document.getElementById('payDetailsPopup');
+            payDetailsPopup.style.display = 'block';
+        }
+
+        function closePayDetails() {
+            const payDetailsPopup = document.getElementById('payDetailsPopup');
+            payDetailsPopup.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
